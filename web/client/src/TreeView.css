@@ -1,0 +1,33 @@
+.TreeRoot {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.TreeNode {
+	list-style: none;
+	padding: 2px 3px;
+}
+
+.TreeNode > .node__content {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	cursor: pointer;
+}
+
+.node__content > .node__name {
+	padding: 2px 3px;
+	/* color: #ed3223; */
+}
+
+.TreeNode .node__children {
+	padding: 0;
+}
+
+.node__content:hover > .node__name {
+	background: #000;
+  color: #fff;
+}

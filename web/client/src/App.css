@@ -1,0 +1,29 @@
+.sidebar {
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  /* background: #111111; */
+}
+
+.content {
+  margin-left: 200px;
+}
+
+.content > pre {
+  margin: 0;
+}
+
+#nprogress .bar {
+  background: #fabd2f;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #fabd2f, 0 0 5px #fabd2f;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #fabd2f;
+  border-left-color: #fabd2f;
+}

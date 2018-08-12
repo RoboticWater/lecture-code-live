@@ -1,6 +1,8 @@
 import time, sys
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+import requests
+import mimetypes
 
 
 class Watcher:
@@ -35,6 +37,14 @@ class Handler(FileSystemEventHandler):
 		elif event.event_type == 'modified':
 			# Taken any action here when a file is modified.
 			print("Received modified event - %s." % event.src_path)
+			print(mimetypes.guess_type(event.src_path.split('\\')[-1]))
+			# print(event.src_path.split('\\'))
+			req = requests.post('http://localhost:3001/api/upload', 
+				data={"filepath": event.src_path}, 
+				files={'file': 
+				(event.src_path.split('\\')[-1], 
+					open(event.src_path, 'rb'), 
+					mimetypes.guess_type(event.src_path.split('\\')[-1])[0])})
 
 
 if __name__ == '__main__':
