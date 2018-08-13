@@ -10,7 +10,7 @@ import routesApi from './routes';
 const app = express();
 
 app.use(bodyParser.json());
-app.use(methodOverride('_method'))
-;app.use('/api', routesApi);
+app.use(methodOverride('_method'));
+app.use('/api', routesApi);
 
 export default app;

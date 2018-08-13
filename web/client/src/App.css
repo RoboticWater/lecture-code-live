@@ -35,7 +35,8 @@ $sidebar-width: 160px;
     margin-left: 10px;
   }
   .filename {
-    flex: 0 0 250px;
+    flex: 0;
+    margin-right: 30px;
   }
   .options {
     flex: 1;
@@ -70,17 +71,21 @@ $sidebar-width: 160px;
   color: #ffffff77;
 }
 
-input {
+select {
   font-family: monospace;
+  border: none;
 }
 
 .option {
   height: 100%;
   display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-}
-
-.tab-size {
-  width: 100px;
+  /* flex-direction: column; */
+  .option__tag {
+    margin-right: 3px;
+    margin-top: 5px;
+  }
+  .option__content {
+    align-self: flex-end; 
+    margin-bottom: 5px;
+  }
 }

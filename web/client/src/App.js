@@ -25,7 +25,7 @@ class App extends Component {
 
     // event emmited when connected
     this.ws.onopen = function () {
-        console.log('websocket is connected ...')
+        console.log('[socket] connected to server')
         // sending a send event to websocket server
         this.ws.send('[socket] client connected')
     }.bind(this);
@@ -112,13 +112,22 @@ class App extends Component {
 					<div className="logo"></div>
 					<h1 className="filename">{this.state.cur_title}</h1>
 					<div className="options">
-						<div className="option tab-size">
-							<span className="option__tag">tab size: </span>
-							<input 
-								id="number"
-								type="number"
-								value={this.state.tab_size}
-								onChange={e => this.setState({ tab_size: e.target.value })}/>
+						<div className="option">
+							<div className="option__content">
+                <span className="option__tag">tab size: </span>
+                <select
+                  className="option__input"
+                  onChange={e => this.setState({ tab_size: e.target.value })}
+                  value={this.state.tab_size}>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                </select>
+              </div>
 						</div>
 					</div>
 				</div>
