@@ -1,3 +1,4 @@
+import WebSocket from 'ws'
 // @route POST /upload
 // @desc  Uploads file to DB
 export function upload(req, res, wss) {

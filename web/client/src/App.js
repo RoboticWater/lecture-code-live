@@ -10,6 +10,14 @@ import './App.css';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import theme from './theme';
 
+const extensionMap = {
+  'py': 'python',
+  'txt': 'text',
+  'html': 'html',
+  'css': 'css',
+  'js': 'javascript',
+}
+
 class App extends Component {
 
 	ws;
@@ -55,14 +63,13 @@ class App extends Component {
 	}
 
   parseFile(path, data) {
-  	let split_path = path.replace('./', '').split('\\');
+  	let split_path = path.replace('./', '').replace('\\', '/').split('/');
   	let file = {
   		name: split_path.slice(-1)[0],
   		filename: data.filename
   	}
   	let newFiles = Object.assign({}, this.state.files);
   	newFiles.name = split_path[0];
-
   	this.addFile(split_path.slice(1), newFiles, file);
   	this.setState({ files: newFiles });
   }
@@ -74,7 +81,6 @@ class App extends Component {
   	}
   	let folderFound = false;
   	curNode.children.forEach(dir => {
-  		console.log(dir.name === path[0], dir.name, path[0])
   		if (dir.name === path[0]) {
   			this.addFile(path.slice(1), dir, file);
   			folderFound = true;
@@ -105,38 +111,47 @@ class App extends Component {
   	}
   }
 
+  parseExtension(filename) {
+    if (!filename)
+      return 'text';
+    return extensionMap[filename.split('.').slice(-1).pop()]
+  }
+
 	render() {
 		return (
 			<div className="App">
-				<div className="topbar">
-					<div className="logo"></div>
-					<h1 className="filename">{this.state.cur_title}</h1>
-					<div className="options">
-						<div className="option">
-							<div className="option__content">
-                <span className="option__tag">tab size: </span>
-                <select
-                  className="option__input"
-                  onChange={e => this.setState({ tab_size: e.target.value })}
-                  value={this.state.tab_size}>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                </select>
-              </div>
-						</div>
-					</div>
-				</div>
+        <div className="sidebar">
+            {/*<div className="logo"></div>*/}
+          <TreeRoot children={this.state.files.children} onClick={this.onNodeClick.bind(this)} />
+        </div>
 				<div className="content">
-					<div className="sidebar">
-						<TreeRoot children={this.state.files.children} onClick={this.onNodeClick.bind(this)} />
-	        </div>
-					<div className="file" style={{'tabSize': String(this.state.tab_size)}}>
-				    <SyntaxHighlighter language='html' showLineNumbers style={theme}>{this.state.cur_file}</SyntaxHighlighter>
+          <div className="topbar">
+            <h1 className="filename">{this.state.cur_title}</h1>
+            <div className="options">
+              <div className="option">
+                <div className="option__content">
+                  <span className="option__tag">tab size: </span>
+                  <select
+                    className="option__input"
+                    onChange={e => this.setState({ tab_size: e.target.value })}
+                    value={this.state.tab_size}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+					<div className="file" style={{'tabSize': String(this.state.tab_size)}} customStyles={{width: '100%'}}>
+				    <SyntaxHighlighter
+              language={this.parseExtension(this.state.cur_filename)}
+              showLineNumbers
+              style={theme}>{this.state.cur_file}</SyntaxHighlighter>
 					</div>
 					</div>
 			</div>
