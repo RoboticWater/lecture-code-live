@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/bin/www --exec babel-node",
+    "start": "babel-node ./server/bin/www",
     "dev": "npm run watch && nodemon --watch dist",
     "build": "babel server -d dist --ignore server/tests --copy-files",
     "serve": "node ./dist/bin/www",
@@ -23,7 +23,6 @@
     "express-ws": "^4.0.0",
     "gridfs-stream": "^1.1.1",
     "http-errors": "~1.6.2",
-    "jade": "~1.11.0",
     "md5": "^2.2.1",
     "method-override": "^3.0.0",
     "mongodb": "^3.1.1",
@@ -35,6 +34,8 @@
     "multer-gridfs-storage": "^3.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/node": "^7.0.0",
     "cross-env": "^5.2.0",
     "nodemon": "^1.17.5"
   }
