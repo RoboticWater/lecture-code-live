@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./server/bin/www --ignore ./client --exec babel-node",
+    "start": "node ./server/bin/www --exec babel-node",
     "dev": "npm run watch && nodemon --watch dist",
     "build": "babel server -d dist --ignore server/tests --copy-files",
     "serve": "node ./dist/bin/www",
