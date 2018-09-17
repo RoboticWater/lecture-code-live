@@ -37,7 +37,7 @@ $sidebar-width: 180px;
   display: flex;
   flex: 1;
   flex-flow: column;
-  width: 100%;
+  width: calc(100% - $sidebar-width);
   .file {
     flex: 1;
     overflow: auto;
@@ -48,7 +48,6 @@ $sidebar-width: 180px;
 .file > pre {
   margin: 0;
   height: calc(100% - 1em);
-  width: 100%;
 }
 
 code {

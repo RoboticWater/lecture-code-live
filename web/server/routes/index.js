@@ -28,6 +28,7 @@ router.post('/upload', db.upload.single('file'), (req, res) => upload.upload(req
 
 router.get('/files', (req, res) => files.getFiles(req, res, db))
 router.get('/files/:filename', (req, res) => files.getContent(req, res, db))
+router.post('/files/deletepath', (req, res) => files.deleteFileByPath(req, res, db, wss))
 router.post('/files/:filename', (req, res) => files.getFile(req, res, db))
 router.delete('/files/:filename', (req, res) => files.deleteFile(req, res, db))
 

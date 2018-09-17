@@ -147,7 +147,7 @@ class App extends Component {
               </div>
             </div>
           </div>
-					<div className="file" style={{'tabSize': String(this.state.tab_size)}} customStyles={{width: '100%'}}>
+					<div className="file" style={{'tabSize': String(this.state.tab_size)}} customstyles={{width: '100%'}}>
 				    <SyntaxHighlighter
               language={this.parseExtension(this.state.cur_filename)}
               showLineNumbers
