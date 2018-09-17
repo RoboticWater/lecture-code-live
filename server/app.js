@@ -15,8 +15,4 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.use('/api', routesApi);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../client/build/index.html'))
-})
-
 export default app;

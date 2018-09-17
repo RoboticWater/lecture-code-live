@@ -6,7 +6,7 @@ import * as upload from '../controllers/upload.controller';
 import * as files from '../controllers/files.contoller';
 
 const router = express.Router();
-const db = new Database('mongodb://localhost:27017/lecturecode', 'mongodb://localhost:27017/lecturecode');
+const db = new Database(process.env.MONGODB_URI, process.env.MONGODB_URI);
 
 var WebSocketServer = require('ws').Server,
   wss = new WebSocketServer({port: 40510})
@@ -19,10 +19,9 @@ wss.on('connection', (ws) => {
   });
 });
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../client/build/index.html'))
+})
 
 router.post('/upload', db.upload.single('file'), (req, res) => upload.upload(req, res, wss))
 
