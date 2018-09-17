@@ -5,8 +5,6 @@ import Database from '../models/db';
 import * as upload from '../controllers/upload.controller';
 import * as files from '../controllers/files.contoller';
 
-import app from '../app';
-
 const router = express.Router();
 const db = new Database(process.env.MONGODB_URI, process.env.MONGODB_URI);
 
@@ -21,7 +19,7 @@ wss.on('connection', (ws) => {
   });
 });
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/../client/build/index.html'))
 })
 
