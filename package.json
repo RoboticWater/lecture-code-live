@@ -8,7 +8,8 @@
     "build": "babel server -d dist --ignore server/tests --copy-files",
     "serve": "node ./dist/bin/www",
     "watch": "babel -w server -d dist --ignore server/tests --copy-files",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
