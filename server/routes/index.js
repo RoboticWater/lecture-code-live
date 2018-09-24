@@ -9,7 +9,7 @@ const router = express.Router();
 const db = new Database(process.env.MONGODB_URI, process.env.MONGODB_URI);
 
 var WebSocketServer = require('ws').Server,
-  wss = new WebSocketServer({port: 40510})
+  wss = new WebSocketServer({port: 8080})
 
 wss.on('connection', (ws) => {
   console.log('[socket] connection detected');

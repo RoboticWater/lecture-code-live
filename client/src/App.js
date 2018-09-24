@@ -28,7 +28,7 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		this.ws = new WebSocket('ws://localhost:40510');
+		this.ws = new WebSocket('ws://localhost:8080');
 		this.getFiles()
 
     // event emmited when connected
