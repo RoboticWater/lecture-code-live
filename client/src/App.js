@@ -28,7 +28,9 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		this.ws = new WebSocket('ws://localhost:8080');
+    var HOST = location.origin.replace(/^http/, 'ws')
+    console.log(HOST);
+		this.ws = new WebSocket(HOST);
 		this.getFiles()
 
     // event emmited when connected
