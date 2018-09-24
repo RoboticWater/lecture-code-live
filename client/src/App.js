@@ -28,18 +28,14 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-    var HOST = location.origin.replace(/^http/, 'ws')
-    console.log(HOST);
+    var HOST = window.location.origin.replace(/^http/, 'ws')
 		this.ws = new WebSocket(HOST);
 		this.getFiles()
 
-    // event emmited when connected
     this.ws.onopen = function () {
         console.log('[socket] connected to server')
-        // sending a send event to websocket server
         this.ws.send('[socket] client connected')
     }.bind(this);
-    // event emmited when receiving message 
     this.ws.onmessage = function (ev) {
     	this.getFiles()
       if (this.state.cur_filename === ev.data) {
