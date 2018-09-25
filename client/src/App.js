@@ -3,7 +3,7 @@ import axios from 'axios';
 import nprogress from 'nprogress'
 import { TreeRoot } from './TreeView'
 // import Websocket from 'react-websocket';
-import openSocket from 'socket.io-client';
+import io from 'socket.io-client';
 
 import 'nprogress/nprogress.css'
 import './App.css';
@@ -30,7 +30,7 @@ class App extends Component {
 
 	componentDidMount() {
     var HOST = window.location.origin.replace(/^http/, 'ws')
-    const socket = openSocket(process.env.PORT);
+    const socket = io.connect(process.env.PORT);
 		// this.ws = new WebSocket(HOST);
 		this.getFiles()
     socket.on('connected', () => console.log("Connected"));
