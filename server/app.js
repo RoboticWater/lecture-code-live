@@ -22,9 +22,13 @@ const server = http.Server(app);
 const io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('Client connected');
+  setInterval(() => {
+    socket.emit('timer', new Date());
+  }, 1000);
   socket.emit('connected','[socket] connected to server')
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
+
 io.listen(8000);
 // const SocketServer = require('ws').Server;
 

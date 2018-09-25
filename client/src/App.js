@@ -34,7 +34,18 @@ class App extends Component {
 		// this.ws = new WebSocket(HOST);
 		this.getFiles()
     socket.on('connected', () => console.log("Connected"));
-
+    socket.on('timer', time => console.log(time))
+    socket.on('fileupdate', filename => {
+      this.getFiles()
+      if (this.state.cur_filename === filename) {
+        axios.get('/api/files/' + filename)
+          .then(res => {
+            this.setState({cur_file: res.data, cur_filename: filename }, () => {
+            })
+          })
+          .catch(e => console.log(e));
+      }
+    });
     // this.ws.onopen = function () {
     //     console.log('[socket] connected to server')
     //     this.ws.send('[socket] client connected')
