@@ -46,21 +46,6 @@ class App extends Component {
           .catch(e => console.log(e));
       }
     });
-    // this.ws.onopen = function () {
-    //     console.log('[socket] connected to server')
-    //     this.ws.send('[socket] client connected')
-    // }.bind(this);
-    // this.ws.onmessage = function (ev) {
-    // 	this.getFiles()
-    //   if (this.state.cur_filename === ev.data) {
-    //   	axios.get('/api/files/' + ev.data)
-    //   		.then(res => {
-    //   			this.setState({cur_file: res.data, cur_filename: ev.data }, () => {
-    //   			})
-    //   		})
-    //   		.catch(e => console.log(e));
-    //   }
-    // }.bind(this);
 	}
 
 	getFiles() {

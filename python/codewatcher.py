@@ -4,7 +4,7 @@ from watchdog.events import FileSystemEventHandler
 import requests, json
 import mimetypes
 
-url = 'http://localhost:3001/api' #'https://lecturecode.herokuapp.com/api'
+url = 'https://lecturecode.herokuapp.com/api' #'http://localhost:3001/api'
 class Watcher:
 	DIRECTORY = sys.argv[1] if len(sys.argv) > 1 else './testdir'
 	def __init__(self):
