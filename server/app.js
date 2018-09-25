@@ -18,13 +18,14 @@ var PORT = process.env.PORT || 3001;
 const app = express();
 const router = express.Router();
 const db = new Database(process.env.MONGODB_URI, process.env.MONGODB_URI);
-const server = http.createServer(app);
+const server = http.Server(app);
 const io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('Client connected');
   socket.emit('connected','[socket] connected to server')
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
+io.listen(8000);
 // const SocketServer = require('ws').Server;
 
 // const wss = new SocketServer({ server: app });
