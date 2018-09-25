@@ -8,8 +8,10 @@ import * as files from '../controllers/files.contoller';
 const router = express.Router();
 const db = new Database(process.env.MONGODB_URI, process.env.MONGODB_URI);
 
+var PORT = process.env.PORT || 3001;
+
 var WebSocketServer = require('ws').Server,
-  wss = new WebSocketServer({port: 3001})
+  wss = new WebSocketServer({port: PORT})
 
 wss.on('connection', (ws) => {
   console.log('[socket] connection detected');

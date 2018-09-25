@@ -39,7 +39,7 @@ class App extends Component {
     this.ws.onmessage = function (ev) {
     	this.getFiles()
       if (this.state.cur_filename === ev.data) {
-      	axios.get('/files/' + ev.data)
+      	axios.get('/api/files/' + ev.data)
       		.then(res => {
       			this.setState({cur_file: res.data, cur_filename: ev.data }, () => {
       			})
@@ -50,7 +50,7 @@ class App extends Component {
 	}
 
 	getFiles() {
-		axios.get('/files')
+		axios.get('/api/files')
 			.then(res => {
 				this.state.files = {children: []};
 				res.data.forEach(file => {
@@ -99,7 +99,7 @@ class App extends Component {
   		return;
   	else {
   		nprogress.start()
-  		axios.get('/files/' + filename)
+  		axios.get('/get/files/' + filename)
   			.then(res => {
   				this.setState({cur_file: res.data, cur_title: name, cur_filename: filename }, () => {
   					nprogress.done()
