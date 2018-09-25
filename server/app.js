@@ -56,6 +56,6 @@ router.delete('/files/:filename', (req, res) => files.deleteFile(req, res, db))
 
 app.use('/api', router);
 
-export default app;
+export default server;
 
 
