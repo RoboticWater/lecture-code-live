@@ -1,5 +1,3 @@
-import WebSocket from 'ws'
-
 // @route GET /files
 // @desc  Display all files in JSON
 export function getFiles(req, res, db) {
@@ -28,14 +26,14 @@ export function deleteFile(req, res, db) {
   db.gfs.remove({ filename: req.params.filename, root: 'uploads' }, (err, gridStore) => {
     if (err)
       return res.status(404).json({ err: err });
-
+    req.app.io.emit('fileupdate', req.params.filename);
     return res.json("deleted");
   });
 }
 
 // @route DELETE /files/:filename
 // @desc  Delete file
-export function deleteFileByPath(req, res, db, io) {
+export function deleteFileByPath(req, res, db) {
   db.gfs.files.findOne({ 'metadata.path': req.body.filepath }, (err, file) => {
     if (!file || file.length === 0)
       return res.status(404).json({ err: 'No file exists' });
@@ -44,13 +42,7 @@ export function deleteFileByPath(req, res, db, io) {
         console.log(err)
         return res.status(404).json({ err: err });
       }
-      io.broadcast.emit('fileupdate', file.filename);
-
-      // wss.clients.forEach(client => {
-      //   if (client.readyState === WebSocket.OPEN) {
-      //     client.send(file.filename);
-      //   }
-      // });
+      req.app.io.emit('fileupdate', file.filename);
       return res.json("deleted")
     });
   });

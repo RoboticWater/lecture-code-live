@@ -4,7 +4,7 @@ from watchdog.events import FileSystemEventHandler
 import requests, json
 import mimetypes
 
-
+url = 'http://localhost:3001/api' #'https://lecturecode.herokuapp.com/api'
 class Watcher:
 	DIRECTORY = sys.argv[1] if len(sys.argv) > 1 else './testdir'
 	def __init__(self):
@@ -34,12 +34,12 @@ class Handler(FileSystemEventHandler):
 			return None
 		elif event.event_type == 'deleted':
 			print("[watch] Received deleted event - %s." % event.src_path)
-			req = requests.post('https://lecturecode.herokuapp.com/api/files/deletepath',
+			req = requests.post(url + '/files/deletepath',
 				json={"filepath": event.src_path})
 		elif event.event_type == 'created':
 			# Take any action here when a file is first created.
 			print("[watch] Received created event - %s." % event.src_path)
-			req = requests.post('https://lecturecode.herokuapp.com/api/upload', 
+			req = requests.post(url + '/upload', 
 				data={"filepath": event.src_path}, 
 				files={'file': 
 				(event.src_path.split('\\')[-1], 
@@ -49,7 +49,7 @@ class Handler(FileSystemEventHandler):
 			# Taken any action here when a file is modified.
 			print("[watch] Received modified event - %s." % event.src_path)
 			# print(event.src_path.split('\\'))
-			req = requests.post('https://lecturecode.herokuapp.com/api/upload', 
+			req = requests.post(url + '/upload', 
 				data={"filepath": event.src_path}, 
 				files={'file': 
 				(event.src_path.split('\\')[-1], 

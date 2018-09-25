@@ -36,6 +36,7 @@ class App extends Component {
     socket.on('connected', () => console.log("Connected"));
     socket.on('timer', time => console.log(time))
     socket.on('fileupdate', filename => {
+      console.log('fileupdate');
       this.getFiles()
       if (this.state.cur_filename === filename) {
         axios.get('/api/files/' + filename)
