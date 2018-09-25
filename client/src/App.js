@@ -34,7 +34,6 @@ class App extends Component {
 		// this.ws = new WebSocket(HOST);
 		this.getFiles()
     socket.on('connected', () => console.log("Connected"));
-    socket.on('timer', time => console.log(time))
     socket.on('fileupdate', filename => {
       console.log('fileupdate');
       this.getFiles()
