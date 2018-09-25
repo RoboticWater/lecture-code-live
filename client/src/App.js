@@ -99,7 +99,7 @@ class App extends Component {
   		return;
   	else {
   		nprogress.start()
-  		axios.get('/get/files/' + filename)
+  		axios.get('/api/files/' + filename)
   			.then(res => {
   				this.setState({cur_file: res.data, cur_title: name, cur_filename: filename }, () => {
   					nprogress.done()
