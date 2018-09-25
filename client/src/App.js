@@ -30,10 +30,7 @@ class App extends Component {
 
 	componentDidMount() {
     var HOST = window.location.origin.replace(/^http/, 'ws')
-    const socket = io('//lecturecode.herokuapp.com/', {
-      reconnect: true,
-      rejectUnauthorized: false,
-    });
+    const socket = io();
 		// this.ws = new WebSocket(HOST);
 		this.getFiles()
     socket.on('connected', () => console.log("Connected"));
