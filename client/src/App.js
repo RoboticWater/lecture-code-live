@@ -30,7 +30,7 @@ class App extends Component {
 
 	componentDidMount() {
     var HOST = window.location.origin.replace(/^http/, 'ws')
-    const socket = io.connect(process.env.PORT);
+    const socket = io.connect();
 		// this.ws = new WebSocket(HOST);
 		this.getFiles()
     socket.on('connected', () => console.log("Connected"));
