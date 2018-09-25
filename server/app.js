@@ -20,10 +20,6 @@ const router = express.Router();
 const db = new Database(process.env.MONGODB_URI, process.env.MONGODB_URI);
 const server = http.createServer(app);
 const io = socketIO(server);
-io.configure(function () { 
-  io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
-});
 io.on('connection', (socket) => {
   console.log('Client connected');
   socket.emit('connected','[socket] connected to server')
