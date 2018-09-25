@@ -18,7 +18,8 @@ var PORT = process.env.PORT || 3001;
 const app = express();
 const router = express.Router();
 const db = new Database(process.env.MONGODB_URI, process.env.MONGODB_URI);
-const server = http.Server(app);
+const server = http.createServer(app);
+// const io = require('socket.io').listen(server);
 const io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('Client connected');
@@ -28,8 +29,6 @@ io.on('connection', (socket) => {
   socket.emit('connected','[socket] connected to server')
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
-
-io.listen(8000);
 // const SocketServer = require('ws').Server;
 
 // const wss = new SocketServer({ server: app });
@@ -60,7 +59,54 @@ router.delete('/files/:filename', (req, res) => files.deleteFile(req, res, db))
 
 
 app.use('/api', router);
+server.listen(PORT);
+server.on('error', onError);
+server.on('listening', onListening);
 
-export default app;
+
+var debug = require('debug')('web:server');
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof PORT === 'string'
+    ? 'Pipe ' + PORT
+    : 'Port ' + PORT;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.PORT;
+  debug('Listening on ' + bind);
+}
+
+
+//export default app;
 
 
