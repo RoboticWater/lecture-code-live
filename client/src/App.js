@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import nprogress from 'nprogress'
 import { TreeRoot } from './TreeView'
-import Websocket from 'react-websocket';
+// import Websocket from 'react-websocket';
+import openSocket from 'socket.io-client';
 
 import 'nprogress/nprogress.css'
 import './App.css';
@@ -20,7 +21,7 @@ const extensionMap = {
 
 class App extends Component {
 
-	ws;
+	// ws;
 	state = {
 		files: {children: []},
 		tab_size: 2,
@@ -29,24 +30,26 @@ class App extends Component {
 
 	componentDidMount() {
     var HOST = window.location.origin.replace(/^http/, 'ws')
-		this.ws = new WebSocket(HOST);
+    const socket = openSocket(HOST);
+		// this.ws = new WebSocket(HOST);
 		this.getFiles()
+    socket.on('connected', () => console.log("Connected"));
 
-    this.ws.onopen = function () {
-        console.log('[socket] connected to server')
-        this.ws.send('[socket] client connected')
-    }.bind(this);
-    this.ws.onmessage = function (ev) {
-    	this.getFiles()
-      if (this.state.cur_filename === ev.data) {
-      	axios.get('/api/files/' + ev.data)
-      		.then(res => {
-      			this.setState({cur_file: res.data, cur_filename: ev.data }, () => {
-      			})
-      		})
-      		.catch(e => console.log(e));
-      }
-    }.bind(this);
+    // this.ws.onopen = function () {
+    //     console.log('[socket] connected to server')
+    //     this.ws.send('[socket] client connected')
+    // }.bind(this);
+    // this.ws.onmessage = function (ev) {
+    // 	this.getFiles()
+    //   if (this.state.cur_filename === ev.data) {
+    //   	axios.get('/api/files/' + ev.data)
+    //   		.then(res => {
+    //   			this.setState({cur_file: res.data, cur_filename: ev.data }, () => {
+    //   			})
+    //   		})
+    //   		.catch(e => console.log(e));
+    //   }
+    // }.bind(this);
 	}
 
 	getFiles() {

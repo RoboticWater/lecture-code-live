@@ -35,7 +35,7 @@ export function deleteFile(req, res, db) {
 
 // @route DELETE /files/:filename
 // @desc  Delete file
-export function deleteFileByPath(req, res, db, wss) {
+export function deleteFileByPath(req, res, db, io) {
   db.gfs.files.findOne({ 'metadata.path': req.body.filepath }, (err, file) => {
     if (!file || file.length === 0)
       return res.status(404).json({ err: 'No file exists' });
@@ -44,11 +44,13 @@ export function deleteFileByPath(req, res, db, wss) {
         console.log(err)
         return res.status(404).json({ err: err });
       }
-      wss.clients.forEach(client => {
-        if (client.readyState === WebSocket.OPEN) {
-          client.send(file.filename);
-        }
-      });
+      io.broadcast.emit('fileupdate', file.filename);
+
+      // wss.clients.forEach(client => {
+      //   if (client.readyState === WebSocket.OPEN) {
+      //     client.send(file.filename);
+      //   }
+      // });
       return res.json("deleted")
     });
   });
