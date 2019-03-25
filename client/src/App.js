@@ -52,6 +52,7 @@ class App extends Component {
 		axios.get('/api/files')
 			.then(res => {
 				this.state.files = {children: []};
+				console.log(res);
 				res.data.forEach(file => {
 					this.parseFile(file.metadata.path, file);
 				})
@@ -64,7 +65,8 @@ class App extends Component {
   	let file = {
   		name: split_path.slice(-1)[0],
   		filename: data.filename
-  	}
+		}
+		console.log(file);
   	let newFiles = Object.assign({}, this.state.files);
   	newFiles.name = split_path[0];
   	this.addFile(split_path.slice(1), newFiles, file);
@@ -72,7 +74,6 @@ class App extends Component {
   }
 
   addFile(path, curNode, file) {
-		console.log(path);
   	if (path.length === 1) {
   		curNode.children.push(file);
   		return;
