@@ -74,7 +74,7 @@ class App extends Component {
   }
 
   addFile(path, curNode, file) {
-  	if (path.length === 1) {
+  	if (path.length <== 1) {
   		curNode.children.push(file);
   		return;
   	}
